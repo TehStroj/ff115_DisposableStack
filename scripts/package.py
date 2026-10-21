@@ -20,6 +20,8 @@ def add_file(archive, name, data):
 def package(destination, manifest=None):
     if manifest is None:
         manifest = json.loads((SOURCE / "manifest.json").read_text())
+    if any(mark in manifest["name"].casefold() for mark in ("mozilla", "firefox")):
+        raise ValueError("AMO submission names must not contain Mozilla or Firefox trademarks")
     destination = Path(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(destination, "w", compression=zipfile.ZIP_DEFLATED) as archive:

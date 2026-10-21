@@ -1,8 +1,8 @@
 # Reproducing the Mozilla submission
 
-These instructions apply to `ff115-disposable-stack-0.1.2-sources.zip` and to
+These instructions apply to `ff115-disposable-stack-0.1.3-sources.zip` and to
 the corresponding repository version. The matching upload XPI is
-`ff115-disposable-stack-0.1.2.xpi`. Neither file is Mozilla-signed.
+`ff115-disposable-stack-0.1.3.xpi`. Neither file is Mozilla-signed.
 
 ## Build requirements
 
@@ -34,7 +34,7 @@ python3 scripts/package.py
 
 On Windows with the Python launcher, use `py -3` in place of `python3`.
 
-Output: `dist/ff115-disposable-stack-0.1.2.xpi`.
+Output: `dist/ff115-disposable-stack-0.1.3.xpi`.
 
 This ZIP contains exactly four files at the archive root:
 
@@ -46,6 +46,8 @@ This ZIP contains exactly four files at the archive root:
 No transpilation, minification, bundling, code generation, obfuscation, remote
 resources, or JavaScript preprocessing occurs. In particular, the readable
 JavaScript included in this source ZIP is the JavaScript shipped in the XPI.
+The packager also checks that the display name does not contain the reserved
+Mozilla or Firefox trademarks, following the upload rejection of version 0.1.2.
 
 ## Compare with the uploaded XPI
 
@@ -53,7 +55,7 @@ Save the unsigned XPI submitted to Mozilla somewhere outside the source tree,
 then run:
 
 ```sh
-python3 scripts/verify_package.py /path/to/ff115-disposable-stack-0.1.2.xpi
+python3 scripts/verify_package.py /path/to/ff115-disposable-stack-0.1.3.xpi
 ```
 
 This rebuilds the expected package and compares the entire file set and the
@@ -93,7 +95,7 @@ Mozilla's optional validator can be installed through the official npm
 registry without changing the build:
 
 ```sh
-npx --yes --package=web-ext@10.8.0 web-ext lint --source-dir dist/ff115-disposable-stack-0.1.2.xpi
+npx --yes --package=web-ext@10.8.0 web-ext lint --source-dir dist/ff115-disposable-stack-0.1.3.xpi
 ```
 
 The validator reports two known minimum-version warnings for the no-data

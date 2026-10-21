@@ -1,4 +1,4 @@
-# DisposableStack for Firefox 115
+# DisposableStack Compatibility
 
 A small, readable Firefox add-on that provides missing JavaScript resource
 management APIs on **https://chatgpt.com/**, including Codex. Intended for
@@ -17,13 +17,13 @@ security updates.
 ## Public release submission
 
 The [submission directory](submission/) contains the prepared **unsigned**
-version 0.1.2 XPI, matching source ZIP, and their SHA-256 checksums. They are prepared for upload through the
+version 0.1.3 XPI, matching source ZIP, and their SHA-256 checksums. They are prepared for upload through the
 Mozilla Developer Hub, but has not been signed or approved by Mozilla.
 [Listing text](docs/amo-listing.md), [reviewer notes](docs/reviewer-notes.md),
 and a [privacy policy](PRIVACY.md) are included. The intended first public
 listing is experimental, for Windows and Linux desktop users.
 
-Version 0.1.2 requires **115.31.0+ in practice** because earlier 115 builds reject
+Version 0.1.3 requires **115.31.0+ in practice** because earlier 115 builds reject
 Mozilla's now-required no-data manifest field. The manifest declares the
 `115.0` base-version entry for AMO compatibility metadata: AMO's upload server
 rejected the exact ESR patch value `115.31.0` as unknown. This does not make
@@ -124,7 +124,7 @@ npm test
 npm run build
 ```
 
-The build produces `dist/ff115-disposable-stack-0.1.2.xpi`, a deterministic ZIP
+The build produces `dist/ff115-disposable-stack-0.1.3.xpi`, a deterministic ZIP
 containing only `manifest.json`, `polyfill.js`, `content.js`, and `LICENSE`.
 Tests and build tools are not shipped in the add-on. To refresh the committed
 Mozilla upload artifact and checksum, run `npm run package:submission`.
@@ -135,7 +135,7 @@ dependencies):
 
 ```sh
 npx --yes --package=web-ext@10.8.0 web-ext lint --source-dir extension
-npx --yes --package=web-ext@10.8.0 web-ext lint --source-dir submission/ff115-disposable-stack-0.1.2.xpi
+npx --yes --package=web-ext@10.8.0 web-ext lint --source-dir submission/ff115-disposable-stack-0.1.3.xpi
 ```
 
 Two minimum-version warnings for the new no-data declaration are expected;
@@ -169,7 +169,7 @@ on Linux ESR 115.14 with geckodriver 0.34.0. A user also reported that it restor
 Codex chatting on Windows 7/Firefox 115. The Windows patch version, macOS,
 Android, and every feature of the live ChatGPT/Codex service have not been
 independently tested. The owner subsequently identified the browser as Windows
-7/Firefox 115.43.1 ESR (64-bit). The version 0.1.2 manifest and unchanged disposal
+7/Firefox 115.43.1 ESR (64-bit). The version 0.1.3 manifest and unchanged disposal
 code passed all 18 checks on Linux ESR 140.15 with geckodriver 0.36.0, a browser
 that also lacks native DisposableStack. The new manifest has not been run in a
 cloud 115.31+ browser. See [validation scope](docs/validation.md).

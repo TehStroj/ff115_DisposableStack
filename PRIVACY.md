@@ -1,6 +1,6 @@
 # Privacy policy
 
-DisposableStack for Firefox 115 does not collect or transmit personal data or
+DisposableStack Compatibility does not collect or transmit personal data or
 other user data. It makes no network requests and has no analytics, telemetry,
 advertising, or remote code.
 

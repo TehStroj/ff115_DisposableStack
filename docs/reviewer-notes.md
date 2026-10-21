@@ -10,12 +10,16 @@ management JavaScript APIs on https://chatgpt.com/ for Firefox desktop ESR
 It does not claim affiliation with Mozilla or OpenAI, complete language
 conformance, or compatibility with every feature of the website.
 
-The add-on ID is `ff115-disposable-stack@tehstroj.github.io`, version 0.1.2.
+The add-on ID is `ff115-disposable-stack@tehstroj.github.io`, version 0.1.3.
+The display name is **DisposableStack Compatibility**. Version 0.1.2's upload
+was blocked because the old display name contained the Firefox trademark.
+Only the display name and release metadata were changed; the stable add-on ID,
+host permission, and disposal JavaScript remain the same.
 The unsigned upload archive contains the manifest, two unminified JavaScript
 files, and the MIT license. There are no libraries, generated JavaScript,
 obfuscation, build-time transforms of JavaScript, remote scripts, background
-pages, or runtime dependencies. The complete repository, including the
-packaging script and tests, is public:
+pages, or runtime dependencies. The matching source ZIP supplies the complete
+source, packaging scripts, and tests. The project repository is:
 https://github.com/TehStroj/ff115_DisposableStack
 
 ### Permissions and the page-context bridge
@@ -98,7 +102,7 @@ outdated browser tool. The optional browser suite is a separate validation step.
 To compare a submitted unsigned XPI with the source, run:
 
 ```sh
-python3 scripts/verify_package.py /path/to/ff115-disposable-stack-0.1.2.xpi
+python3 scripts/verify_package.py /path/to/ff115-disposable-stack-0.1.3.xpi
 ```
 
 It rebuilds and checks the exact archive file set and every file's bytes,
@@ -126,7 +130,7 @@ by this public package. The owner reported that the original package restored
 Codex chatting on Windows 7 and identified the browser as 115.43.1 ESR (64-bit).
 This is a user report, not independent testing of every live Codex feature.
 
-The version 0.1.2 manifest and unchanged disposal code also passed all 18
+The version 0.1.3 manifest and unchanged disposal code also passed all 18
 integration checks on Linux Firefox ESR 140.15.0 with geckodriver 0.36.0. That
 browser still lacks native DisposableStack (the suite verifies this before
 installation). The new manifest was not executed in cloud Firefox 115.31+;
@@ -141,8 +145,9 @@ in the summary and description. AMO's upload form rejected the previous
 version 0.1.1 with `Unknown "strict_min_version" 115.31.0 for Firefox`, although
 the detailed linter report showed no errors. The server performs an additional
 exact lookup in its application-version database; a local linter pass does not
-perform that check. The version 0.1.2 correction addresses that reported
-catalog rejection. Server source for this separate validation:
+perform that check. The version 0.1.2 correction addressed that reported
+catalog rejection; version 0.1.3 retains it and corrects the separate display-
+name rejection. Server source for this separate validation:
 https://github.com/mozilla/addons-server/blob/master/src/olympia/files/utils.py
 
 Firefox 115.0–115.30 are not supported by this release. The older 115 manifest

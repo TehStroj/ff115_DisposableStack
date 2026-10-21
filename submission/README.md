@@ -1,16 +1,17 @@
 # Mozilla upload package
 
-`ff115-disposable-stack-0.1.2.xpi` is the **unsigned** experimental upload
+`ff115-disposable-stack-0.1.3.xpi` is the **unsigned** experimental upload
 package, prepared for submission through your Mozilla Add-ons developer account.
-`ff115-disposable-stack-0.1.2-sources.zip` contains the matching readable source,
+`ff115-disposable-stack-0.1.3-sources.zip` contains the matching readable source,
 tests, and build instructions. `SHA256SUMS` identifies both exact files. The
 public package requires **Firefox 115.31.0 or later**.
 
-**Use version 0.1.2 for a fresh upload.** Version 0.1.1 was rejected by AMO's
-separate version-catalog check. The corrected manifest uses the `115.0`
-base-version entry, while the public description keeps the practical 115.31+
-requirement explicit. The two documented metadata-version warnings are
-separate from that blocking upload error.
+**Use version 0.1.3 for a fresh upload.** It renames the add-on to
+**DisposableStack Compatibility**, addressing AMO's display-name rejection of
+version 0.1.2. It retains the `115.0` base-version entry that replaced the
+unrecognized ESR patch entry in version 0.1.1. The public description keeps the
+practical 115.31+ requirement explicit. The two documented metadata-version
+warnings are separate from those blocking upload checks.
 
 Do not install it as if it were a Mozilla-signed release. Signing and store
 approval happen after submission. Uploading the source repository ZIP instead

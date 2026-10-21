@@ -1,4 +1,4 @@
-# Mozilla Add-ons listing — version 0.1.2
+# Mozilla Add-ons listing — version 0.1.3
 
 Copy the field contents below into the Mozilla Add-ons Developer Hub. This is
 an experimental release submission; it has not been signed or approved by
@@ -24,7 +24,7 @@ Mozilla yet. Publishing remains a separate action in your Mozilla account.
 ## Name
 
 ```text
-DisposableStack for Firefox 115
+DisposableStack Compatibility
 ```
 
 ## Summary
@@ -46,7 +46,7 @@ Permissions and privacy
 
 The add-on runs only on https://chatgpt.com/ and matching frames. Firefox's site-access permission is needed to install the APIs in the page's own JavaScript context before ordinary page scripts run.
 
-It does not scan page content, monitor typing, or collect conversations. It has no telemetry, analytics, background process, persistent storage, network requests, or remotely loaded code. Its source is public and licensed under MIT.
+It does not scan page content, monitor typing, or collect conversations. It has no telemetry, analytics, background process, persistent storage, network requests, or remotely loaded code. Its code is readable and licensed under MIT.
 
 Getting started
 
@@ -84,7 +84,8 @@ address. If the form requests the privacy-policy text, copy the contents of
 ```text
 Initial public experimental release.
 
-- Corrects the AMO upload minimum-version entry after the 0.1.1 submission was rejected as unknown. The practical requirement remains Firefox 115.31 or later.
+- Renames the add-on to DisposableStack Compatibility after AMO rejected the Firefox trademark in the previous display name. The add-on ID, permissions, and disposal behavior are unchanged.
+- Retains the corrected AMO minimum-version entry introduced in 0.1.2. The practical requirement remains Firefox 115.31 or later.
 
 - Adds missing DisposableStack, AsyncDisposableStack, SuppressedError, and disposal symbols to chatgpt.com.
 - Includes synchronous iterator disposal and page-context integration for Firefox ESR 115.

@@ -1,13 +1,18 @@
-# Version 0.1.2 validation scope
+# Version 0.1.3 validation scope
 
+- The upload form rejected version 0.1.2's display name for containing the
+  Firefox trademark, even though its detailed linter report had no errors.
+  Version 0.1.3 uses **DisposableStack Compatibility**. The packaging script now
+  rejects names containing either Mozilla or Firefox before creating an XPI.
+  This targeted check does not replace Mozilla's other server-side checks.
 - **15 JavaScript tests pass** using Node.js 24.19.0. They exercise the
   polyfill in fresh realms without native disposal globals.
 - **18 browser integration checks pass** using Linux Firefox ESR 140.15.0 and
-  geckodriver 0.36.0 with the version 0.1.2 manifest. The suite first verifies
+  geckodriver 0.36.0 with the version 0.1.3 manifest. The suite first verifies
   that DisposableStack is absent without the add-on, so this exercises the
   exported polyfill rather than native support.
 - The original 0.1.0 implementation previously passed the same 18 checks on
-  Linux ESR 115.14.0. Its disposal JavaScript is unchanged in 0.1.2.
+  Linux ESR 115.14.0. Its disposal JavaScript is unchanged in 0.1.3.
 - The owner reported successful Codex chatting on Windows 7/Firefox 115 and
   identified their browser as **115.43.1 ESR (64-bit)**. The updated public
   manifest has not yet been independently tested in that Windows session or
