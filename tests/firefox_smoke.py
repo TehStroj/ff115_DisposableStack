@@ -1,4 +1,5 @@
-"""Real Firefox integration test. Requires Firefox and geckodriver, no pip/npm dependencies.
+"""Real Firefox integration test. Requires Firefox 115.31+ without native
+DisposableStack and a compatible geckodriver; no pip/npm dependencies.
 
 The temporary test XPI adds ONLY the local fixture host to its content-script
 matches. The distributable manifest remains restricted to chatgpt.com.
@@ -92,7 +93,11 @@ def main():
                 with opener.open(req, timeout=40) as response:
                     result = json.load(response)["value"]
             except urllib.error.HTTPError as error:
-                raise RuntimeError(error.read().decode()) from error
+                log.flush()
+                log.seek(0)
+                diagnostic = log.read()
+                log.seek(0, 2)
+                raise RuntimeError(error.read().decode() + "\nFirefox log:\n" + diagnostic[-10000:]) from error
             if isinstance(result, dict) and result.get("error"):
                 raise RuntimeError(result)
             return result
@@ -114,7 +119,8 @@ def main():
             "moz:firefoxOptions": {"binary": firefox, "args": ["-headless"], "prefs": {
                 "browser.shell.checkDefaultBrowser": False,
                 "datareporting.policy.dataSubmissionEnabled": False,
-                "toolkit.telemetry.reportingpolicy.firstRun": False
+                "toolkit.telemetry.reportingpolicy.firstRun": False,
+                "extensions.logging.enabled": True
             }}
         }}})
         prefix = "/session/" + session["sessionId"]
@@ -133,7 +139,26 @@ def main():
         manifest = json.loads((ROOT / "extension/manifest.json").read_text())
         manifest["content_scripts"][0]["matches"].append("http://127.0.0.1/*")
         xpi = packager.package(folder / "test.xpi", manifest)
-        request("POST", prefix + "/moz/addon/install", {"path": str(xpi), "temporary": True})
+        try:
+            request("POST", prefix + "/moz/addon/install", {"path": str(xpi), "temporary": True})
+        except RuntimeError:
+            # Firefox's install endpoint hides manifest errors. Inspect the
+            # submitted fixture archive with the browser's own manifest parser.
+            request("POST", prefix + "/moz/context", {"context": "chrome"})
+            diagnostic = request("POST", prefix + "/execute/async", {
+                "script": """
+const done = arguments[arguments.length - 1];
+const file = Cc['@mozilla.org/file/local;1'].createInstance(Ci.nsIFile);
+file.initWithPath(arguments[0]);
+const {ExtensionData} = ChromeUtils.importESModule('resource://gre/modules/Extension.sys.mjs');
+const data = new ExtensionData(Services.io.newURI('jar:' + Services.io.newFileURI(file).spec + '!/'));
+data.loadManifest().then(() => done({errors: data.errors, warnings: data.warnings}),
+  error => done({error: String(error), errors: data.errors, warnings: data.warnings}));
+""",
+                "args": [str(xpi)]
+            })
+            print("Manifest diagnostics:", json.dumps(diagnostic), flush=True)
+            raise
         navigate()
         results = request("POST", prefix + "/execute/async", {"script": "const done = arguments[arguments.length - 1]; window.smokeResultsPromise.then(done, error => done([{name: 'page run', passed: false, error: String(error)}]));", "args": []})
         for result in results:

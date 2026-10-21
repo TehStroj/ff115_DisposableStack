@@ -1,12 +1,14 @@
 {
   "name": "ff115-disposable-stack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
+  "license": "MIT",
   "description": "A small Firefox ESR 115 extension providing explicit resource management APIs to ChatGPT.",
   "scripts": {
     "test": "node --test tests/polyfill.test.cjs",
     "build": "python3 scripts/package.py",
+    "package:submission": "python3 scripts/package.py --submission",
     "test:firefox": "python3 tests/firefox_smoke.py"
   },
-  "engines": { "node": ">=18" }
+  "engines": { "node": ">=22" }
 }
