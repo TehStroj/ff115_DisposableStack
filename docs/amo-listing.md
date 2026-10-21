@@ -1,4 +1,4 @@
-# Mozilla Add-ons listing — version 0.1.1
+# Mozilla Add-ons listing — version 0.1.2
 
 Copy the field contents below into the Mozilla Add-ons Developer Hub. This is
 an experimental release submission; it has not been signed or approved by
@@ -10,7 +10,10 @@ Mozilla yet. Publishing remains a separate action in your Mozilla account.
 - Mark **This add-on is experimental**.
 - Platforms for this initial release: **Windows and Linux**, Firefox desktop.
   Do not select Firefox for Android. macOS has not been tested.
-- Minimum Firefox version: **115.31.0**, as declared in the manifest.
+- Manifest compatibility entry: **115.0** (AMO's base-version entry).
+- Practical minimum: **115.31.0**. Older 115 builds reject the required no-data
+  manifest field and are not supported. Keep this requirement in the public
+  description. AMO rejected `115.31.0` as an unknown catalog entry.
 - License: **MIT**.
 - Suggested category: **Other**; select **Web Development** as a second
   category if appropriate in the current form.
@@ -27,7 +30,7 @@ DisposableStack for Firefox 115
 ## Summary
 
 ```text
-Adds missing JavaScript disposal APIs to ChatGPT and Codex on Firefox ESR 115. No data collection or network requests.
+Adds missing JavaScript disposal APIs to ChatGPT and Codex on Firefox ESR 115.31+. No data collection or network requests.
 ```
 
 ## Description
@@ -47,7 +50,7 @@ It does not scan page content, monitor typing, or collect conversations. It has 
 
 Getting started
 
-Firefox 115.31 or later is required because older 115 builds reject Mozilla's new manifest declaration. After installing, reload any open ChatGPT or Codex tabs. The signed Mozilla version installs normally and does not require turning off Firefox's add-on signature verification.
+Firefox 115.31 or later is required because older 115 builds reject Mozilla's new manifest declaration. Mozilla's compatibility metadata uses the 115.0 base-version entry; this does not mean 115.0–115.30 are supported. Update to a current ESR 115 patch before installing. After installing, reload any open ChatGPT or Codex tabs. The signed Mozilla version installs normally and does not require turning off Firefox's add-on signature verification.
 
 Limitations
 
@@ -80,6 +83,8 @@ address. If the form requests the privacy-policy text, copy the contents of
 
 ```text
 Initial public experimental release.
+
+- Corrects the AMO upload minimum-version entry after the 0.1.1 submission was rejected as unknown. The practical requirement remains Firefox 115.31 or later.
 
 - Adds missing DisposableStack, AsyncDisposableStack, SuppressedError, and disposal symbols to chatgpt.com.
 - Includes synchronous iterator disposal and page-context integration for Firefox ESR 115.
