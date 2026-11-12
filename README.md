@@ -1,4 +1,8 @@
-# DisposableStack Compatibility
+# DEPRECATED
+
+The function was added to the officially released Firefox ESR 115.4x
+
+## DisposableStack Compatibility
 
 A small, readable Firefox add-on that provides missing JavaScript resource
 management APIs on **https://chatgpt.com/**, including Codex. Intended for
